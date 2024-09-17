@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
+import './Home.css';
 
 const Home: React.FC = () => {
   const [username, setLoginUsername] = useState('');

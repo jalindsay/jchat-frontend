@@ -1,0 +1,52 @@
+/* Container for the forms */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+/* Style for the form */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for form fields */
+form div {
+  margin-bottom: 15px;
+}
+
+/* Style for labels */
+form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Style for input fields */
+form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Style for buttons */
+form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
