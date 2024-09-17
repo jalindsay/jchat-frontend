@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth } from './AuthContext';
 
 // Define the User type
 type User = {
@@ -11,12 +12,18 @@ const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const { getAuthToken } = useAuth(); // Get the authToken from the AuthContext
 
   useEffect(() => {
     // Fetch users from the backend
     const fetchUsers = async () => {
       try {
-        const response = await fetch('/users');
+        const response = await fetch('/users', {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`, // Include the JWT token in the headers
+            'Content-Type': 'application/json',
+          },
+        });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
