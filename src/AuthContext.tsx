@@ -1,10 +1,15 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
+type User = {
+  id: string;
+  username: string;
+};
+
 type AuthContextType = {
   isAuthenticated: () => boolean;
   getAuthToken: () => string | null;
   getUsername: () => string | null;
-  login: (token: string, username: string) => void;
+  login: (token: string, user: User) => void;
   logout: () => void;
 };
 
@@ -26,10 +31,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return token !== null;
   };
 
-  const login = (token: string, username: string) => {
+  const login = (token: string, user: User) => {
     setAuthToken(token);
     localStorage.setItem('authToken', token); // Store token in local storage
-    localStorage.setItem('username', username); // Store username in local storage
+    localStorage.setItem('userId', user.id); // Store username in local storage
+    localStorage.setItem('username', user.username); // Store ID in local storage
   };
 
   const logout = () => {
