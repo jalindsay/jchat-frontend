@@ -9,6 +9,7 @@ type AuthContextType = {
   isAuthenticated: () => boolean;
   getAuthToken: () => string | null;
   getUsername: () => string | null;
+  getUserId: () => string | null;
   login: (token: string, user: User) => void;
   logout: () => void;
 };
@@ -24,6 +25,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const getUsername = () => {
     return localStorage.getItem('username');
+  };
+
+  const getUserId = () => {
+    return localStorage.getItem('userId');
   };
 
   const isAuthenticated = () => {
@@ -44,7 +49,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, getAuthToken, getUsername, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, getAuthToken, getUsername, getUserId, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
