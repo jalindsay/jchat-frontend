@@ -3,7 +3,8 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 type AuthContextType = {
   isAuthenticated: () => boolean;
   getAuthToken: () => string | null;
-  login: (token: string) => void;
+  getUsername: () => string | null;
+  login: (token: string, username: string) => void;
   logout: () => void;
 };
 
@@ -12,15 +13,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [authToken, setAuthToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      setAuthToken(token);
-    }
-  }, []);
-
   const getAuthToken = () => {
     return localStorage.getItem('authToken');
+  };
+
+  const getUsername = () => {
+    return localStorage.getItem('username');
   };
 
   const isAuthenticated = () => {
@@ -28,9 +26,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return token !== null;
   };
 
-  const login = (token: string) => {
+  const login = (token: string, username: string) => {
     setAuthToken(token);
     localStorage.setItem('authToken', token); // Store token in local storage
+    localStorage.setItem('username', username); // Store username in local storage
   };
 
   const logout = () => {
@@ -39,7 +38,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, getAuthToken, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, getAuthToken, getUsername, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

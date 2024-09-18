@@ -5,6 +5,7 @@ import Users from './Users';
 import Home from './Home';
 import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './AuthContext';
+import Account from './Account';
 
 function App() {
   return (
@@ -18,6 +19,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Users />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <PrivateRoute>
+                  <Account />
                 </PrivateRoute>
               }
             />

@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
       const data = await response.json();
       // Assuming the response contains a token
-      login(data.token);
+      login(data.token, data.username);
       console.log('Login successful:', data);
     } catch (error) {
       console.error('Error logging in:', error);
