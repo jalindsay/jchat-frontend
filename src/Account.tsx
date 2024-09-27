@@ -9,7 +9,6 @@ const Account: React.FC = () => {
     const fetchUser = async () => {
       const userId = getUserId();
       const token = getAuthToken();
-      console.log('User ID:', userId);
       if (userId) {
         try {
           const response = await fetch(`http://localhost:3000/user/${userId}`, {
