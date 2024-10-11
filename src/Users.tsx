@@ -41,7 +41,7 @@ const Users: React.FC = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [getAuthToken]);
 
   if (loading) {
     return <div>Loading...</div>;

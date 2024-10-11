@@ -33,7 +33,7 @@ const Account: React.FC = () => {
     };
 
     fetchUser();
-  }, [getUserId]);
+  }, [getUserId, getAuthToken]);
 
   return (
     <div>
