@@ -26,24 +26,25 @@ jobs:
 
       - name: Copy build files to EC2
         run: |
-          scp -o StrictHostKeyChecking=no -r build/* ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/app
+          ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} 'mkdir -p /home/${{ secrets.AWS_EC2_USER }}/frontend-app'
+          scp -o StrictHostKeyChecking=no -r build/* ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/frontend-app
 
       - name: Configure Nginx and restart
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} << 'EOF'
-            sudo mv /home/${{ secrets.AWS_EC2_USER }}/app/* /var/www/html/
+            sudo mv /home/${{ secrets.AWS_EC2_USER }}/frontend-app/* /var/www/html/
             sudo systemctl restart nginx
           EOF
 
       - name: Copy files to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} 'mkdir -p /home/${{ secrets.AWS_EC2_USER }}/app'
-          scp -o StrictHostKeyChecking=no -r * ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/app
+          ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} 'mkdir -p /home/${{ secrets.AWS_EC2_USER }}/frontend-app'
+          scp -o StrictHostKeyChecking=no -r * ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/frontend-app
 
       - name: Install dependencies and restart app
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} << 'EOF'
-            cd /home/${{ secrets.AWS_EC2_USER }}/app
+            cd /home/${{ secrets.AWS_EC2_USER }}/frontend-app
             npm install
             pm2 restart all || pm2 start src/index.ts --name "my-app" --interpreter ./node_modules/.bin/ts-node
           EOF
