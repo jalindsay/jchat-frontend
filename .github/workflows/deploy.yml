@@ -36,11 +36,6 @@ jobs:
             sudo systemctl restart nginx
           EOF
 
-      - name: Copy files to EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} 'mkdir -p /home/${{ secrets.AWS_EC2_USER }}/frontend-app'
-          scp -o StrictHostKeyChecking=no -r * ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/frontend-app
-
       - name: Install dependencies and restart app
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} << 'EOF'
