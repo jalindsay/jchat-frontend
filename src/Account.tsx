@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 
 const host = process.env.BACKEND_HOST || 'localhost';
-const port = parseInt(process.env.PORT || '3000');
+const port = parseInt(process.env.BACKEND_PORT || '3000');
 
 const Account: React.FC = () => {
   const { getUserId, getAuthToken } = useAuth();

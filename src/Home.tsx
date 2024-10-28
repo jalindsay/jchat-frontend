@@ -3,7 +3,7 @@ import { useAuth } from './AuthContext';
 import './Home.css';
 
 const host = process.env.BACKEND_HOST || 'localhost';
-const port = parseInt(process.env.PORT || '3000');
+const port = parseInt(process.env.BACKEND_PORT || '3000');
 
 const Home: React.FC = () => {
   const [username, setLoginUsername] = useState('');
