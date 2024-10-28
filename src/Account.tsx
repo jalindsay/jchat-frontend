@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 
+const host = process.env.BACKEND_HOST || 'localhost';
+const port = parseInt(process.env.PORT || '3000');
+
 const Account: React.FC = () => {
   const { getUserId, getAuthToken } = useAuth();
   const [username, setUsername] = useState<string | null>(null);
@@ -11,7 +14,7 @@ const Account: React.FC = () => {
       const token = getAuthToken();
       if (userId) {
         try {
-          const response = await fetch(`http://localhost:3000/user/${userId}`, {
+          const response = await fetch(`http://${host}:${port}/user/${userId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 import './Home.css';
 
+const host = process.env.BACKEND_HOST || 'localhost';
+const port = parseInt(process.env.PORT || '3000');
+
 const Home: React.FC = () => {
   const [username, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -12,7 +15,7 @@ const Home: React.FC = () => {
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch(`http://${host}:${port}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
